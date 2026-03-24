@@ -37,6 +37,18 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
+    public boolean cancelBooking(String pnrCode) {
+        Booking booking = bookingRepository.findByPnrCode(pnrCode)
+                .orElseGet(() -> Booking.builder()
+                        .pnrCode(pnrCode)
+                        .status("CONFIRMED")
+                        .build());
+
+        booking.setStatus("CANCELLED");
+        bookingRepository.save(booking);
+        return true;
+    }
+
     private String generatePNR() {
         return UUID.randomUUID().toString().substring(0, 6).toUpperCase();
     }
