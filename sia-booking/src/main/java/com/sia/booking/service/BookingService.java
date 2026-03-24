@@ -2,12 +2,11 @@ package com.sia.booking.service;
 
 import com.sia.booking.model.entity.Booking;
 import com.sia.booking.model.request.BookingRequest;
+import com.sia.booking.model.request.UpdateBookingRequest;
 import com.sia.booking.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Service
@@ -23,6 +22,17 @@ public class BookingService {
                 .pnrCode(generatePNR())
                 .status("CONFIRMED")
                 .build();
+
+        return bookingRepository.save(booking);
+    }
+
+    public Booking updateBooking(String id, UpdateBookingRequest request) {
+        Long bookingId = Long.parseLong(id);
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new IllegalArgumentException("Booking not found with id: " + id));
+
+        booking.setPassengerName(request.getPassengerName());
+        booking.setFlightNumber(request.getFlightNumber());
 
         return bookingRepository.save(booking);
     }

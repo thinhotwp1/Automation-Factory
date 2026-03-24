@@ -1,0 +1,167 @@
+[[1;34mINFO[m] Scanning for projects...
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m---------------------< [0;36mcom.fortna.wes:sia-booking[0;1m >---------------------[m
+[[1;34mINFO[m] [1mBuilding sia-booking 0.0.1-SNAPSHOT[m
+[[1;34mINFO[m] [1m--------------------------------[ jar ]---------------------------------[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-clean-plugin:3.5.0:clean[m [1m(default-clean)[m @ [36msia-booking[0;1m ---[m
+[[1;34mINFO[m] Deleting /home/thinh/github/Automation-Factory/sia-booking/target
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.3.1:resources[m [1m(default-resources)[m @ [36msia-booking[0;1m ---[m
+[[1;34mINFO[m] Copying 1 resource from src/main/resources to target/classes
+[[1;34mINFO[m] Copying 0 resource from src/main/resources to target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.14.1:compile[m [1m(default-compile)[m @ [36msia-booking[0;1m ---[m
+[[1;34mINFO[m] Recompiling the module because of [1mchanged source code[m.
+[[1;34mINFO[m] Compiling 7 source files with javac [debug parameters release 17] to target/classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-resources-plugin:3.3.1:testResources[m [1m(default-testResources)[m @ [36msia-booking[0;1m ---[m
+[[1;34mINFO[m] skip non existing resourceDirectory /home/thinh/github/Automation-Factory/sia-booking/src/test/resources
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-compiler-plugin:3.14.1:testCompile[m [1m(default-testCompile)[m @ [36msia-booking[0;1m ---[m
+[[1;34mINFO[m] Recompiling the module because of [1mchanged dependency[m.
+[[1;34mINFO[m] Compiling 1 source file with javac [debug parameters release 17] to target/test-classes
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-surefire-plugin:3.5.5:test[m [1m(default-test)[m @ [36msia-booking[0;1m ---[m
+[[1;34mINFO[m] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.pom
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.pom
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.pom
+Downloading from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.pom
+Progress (1): 4.1 kBProgress (1): 5.2 kB                    Downloaded from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.pom (5.2 kB at 9.0 kB/s)
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/apache/maven/surefire/surefire-providers/3.5.5/surefire-providers-3.5.5.pom
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/apache/maven/surefire/surefire-providers/3.5.5/surefire-providers-3.5.5.pom
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/apache/maven/surefire/surefire-providers/3.5.5/surefire-providers-3.5.5.pom
+Downloading from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/surefire-providers/3.5.5/surefire-providers-3.5.5.pom
+Progress (1): 2.5 kB                    Downloaded from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/surefire-providers/3.5.5/surefire-providers-3.5.5.pom (2.5 kB at 30 kB/s)
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.pom
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.pom
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.pom
+Downloading from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.pom
+Progress (1): 3.1 kB                    Downloaded from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.pom (3.1 kB at 35 kB/s)
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.pom
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.pom
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.pom
+Downloading from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.pom
+Downloaded from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.pom (0 B at 0 B/s)
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.pom
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.pom
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.pom
+Downloading from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.pom
+Downloaded from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.pom (0 B at 0 B/s)
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.pom
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.pom
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.pom
+Downloading from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.pom
+Downloaded from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.pom (0 B at 0 B/s)
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.jar
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.jar
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar
+Downloading from plugin-wes-lib-central: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/remote-repos/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.jar
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.jar
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.jar
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar
+Downloading from plugin-wes-lib-releases: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/wes-libs-release-local/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.jar
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.jar
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.jar
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar
+Downloading from plugin-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.jar
+Downloading from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.jar
+Downloading from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.jar
+Downloading from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar
+Downloading from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar
+Downloading from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.jar
+Progress (1): 2.3/35 kBProgress (1): 5.0/35 kBProgress (1): 7.7/35 kBProgress (1): 11/35 kB Progress (1): 14/35 kBProgress (1): 16/35 kBProgress (1): 19/35 kBProgress (1): 22/35 kBProgress (1): 25/35 kBProgress (1): 27/35 kBProgress (1): 30/35 kBProgress (1): 33/35 kBProgress (1): 35 kB                      Downloaded from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/surefire-junit-platform/3.5.5/surefire-junit-platform-3.5.5.jar (35 kB at 195 kB/s)
+Progress (1): 2.3/18 kBProgress (1): 5.0/18 kBProgress (1): 7.7/18 kBProgress (1): 10/18 kB Progress (1): 14/18 kBProgress (1): 16/18 kBProgress (1): 18 kB                      Downloaded from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-commons/1.12.2/junit-platform-commons-1.12.2.jar (0 B at 0 B/s)
+Downloaded from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-engine/1.12.2/junit-platform-engine-1.12.2.jar (0 B at 0 B/s)
+Downloaded from sonatype: https://repo1.maven.org/maven2/org/apache/maven/surefire/common-java5/3.5.5/common-java5-3.5.5.jar (18 kB at 35 kB/s)
+Downloaded from sonatype: https://repo1.maven.org/maven2/org/junit/platform/junit-platform-launcher/1.12.2/junit-platform-launcher-1.12.2.jar (0 B at 0 B/s)
+Downloading from fortna-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.pom
+Downloading from MavenCentral: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.pom
+Downloaded from MavenCentral: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.pom (0 B at 0 B/s)
+Downloading from fortna-ext-release-local: https://fortna-905418154227.d.codeartifact.us-east-2.amazonaws.com/maven/ext-release-local/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.jar
+Downloading from MavenCentral: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.jar
+Downloaded from MavenCentral: https://repo.maven.apache.org/maven2/org/junit/platform/junit-platform-launcher/6.0.3/junit-platform-launcher-6.0.3.jar (0 B at 0 B/s)
+[[1;34mINFO[m] 
+[[1;34mINFO[m] -------------------------------------------------------
+[[1;34mINFO[m]  T E S T S
+[[1;34mINFO[m] -------------------------------------------------------
+[[1;34mINFO[m] Running com.sia.booking.[1mBookingServiceTest[m
+15:04:38.361 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.sia.booking.BookingServiceTest]: BookingServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:04:38.443 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.sia.booking.SiaBookingApplication for test class com.sia.booking.BookingServiceTest
+15:04:38.515 [main] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [com.sia.booking.BookingServiceTest]: BookingServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+15:04:38.517 [main] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration com.sia.booking.SiaBookingApplication for test class com.sia.booking.BookingServiceTest
+15:04:38.600 [main] INFO org.springframework.boot.devtools.restart.RestartApplicationListener -- Restart disabled due to context in which it is running
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.0.4)
+
+2026-03-24T15:04:38.910+07:00  INFO 39448 --- [sia-booking] [           main] com.sia.booking.BookingServiceTest       : Starting BookingServiceTest using Java 21.0.10 with PID 39448 (started by thinh in /home/thinh/github/Automation-Factory/sia-booking)
+2026-03-24T15:04:38.911+07:00  INFO 39448 --- [sia-booking] [           main] com.sia.booking.BookingServiceTest       : No active profile set, falling back to 1 default profile: "default"
+2026-03-24T15:04:39.910+07:00  INFO 39448 --- [sia-booking] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-24T15:04:39.949+07:00  INFO 39448 --- [sia-booking] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 1 JPA repository interface.
+2026-03-24T15:04:40.338+07:00  INFO 39448 --- [sia-booking] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-24T15:04:40.391+07:00  INFO 39448 --- [sia-booking] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.2.7.Final
+2026-03-24T15:04:40.810+07:00  INFO 39448 --- [sia-booking] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-24T15:04:40.851+07:00  INFO 39448 --- [sia-booking] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-03-24T15:04:40.992+07:00  INFO 39448 --- [sia-booking] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:siadb user=SA
+2026-03-24T15:04:40.994+07:00  INFO 39448 --- [sia-booking] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-03-24T15:04:41.012+07:00  WARN 39448 --- [sia-booking] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-03-24T15:04:41.036+07:00  INFO 39448 --- [sia-booking] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:siadb]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: SIADB/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-24T15:04:41.762+07:00  INFO 39448 --- [sia-booking] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: create table bookings (id bigint generated by default as identity, booking_time timestamp(6), flight_number varchar(255), passenger_name varchar(255), pnr_code varchar(255), status varchar(255), primary key (id))
+2026-03-24T15:04:41.821+07:00  INFO 39448 --- [sia-booking] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-24T15:04:41.911+07:00  INFO 39448 --- [sia-booking] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-24T15:04:42.061+07:00  WARN 39448 --- [sia-booking] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-24T15:04:42.348+07:00  INFO 39448 --- [sia-booking] [           main] o.s.b.h.a.H2ConsoleAutoConfiguration     : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:siadb'
+2026-03-24T15:04:42.422+07:00  INFO 39448 --- [sia-booking] [           main] com.sia.booking.BookingServiceTest       : Started BookingServiceTest in 3.831 seconds (process running for 5.188)
+Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
+OpenJDK 64-Bit Server VM warning: Sharing is only supported for boot loader classes because bootstrap classpath has been appended
+WARNING: A Java agent has been loaded dynamically (/home/thinh/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.8/byte-buddy-agent-1.17.8.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+Hibernate: insert into bookings (booking_time,flight_number,passenger_name,pnr_code,status,id) values (?,?,?,?,?,default)
+[[1;34mINFO[m] [1;32mTests run: [0;1;32m1[m, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.904 s -- in com.sia.booking.[1mBookingServiceTest[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] Results:
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1;32mTests run: 1, Failures: 0, Errors: 0, Skipped: 0[m
+[[1;34mINFO[m] 
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-jar-plugin:3.4.2:jar[m [1m(default-jar)[m @ [36msia-booking[0;1m ---[m
+[[1;34mINFO[m] Building jar: /home/thinh/github/Automation-Factory/sia-booking/target/sia-booking-0.0.1-SNAPSHOT.jar
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mspring-boot-maven-plugin:4.0.4:repackage[m [1m(repackage)[m @ [36msia-booking[0;1m ---[m
+[[1;34mINFO[m] Replacing main artifact /home/thinh/github/Automation-Factory/sia-booking/target/sia-booking-0.0.1-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[[1;34mINFO[m] The original artifact has been renamed to /home/thinh/github/Automation-Factory/sia-booking/target/sia-booking-0.0.1-SNAPSHOT.jar.original
+[[1;34mINFO[m] 
+[[1;34mINFO[m] [1m--- [0;32mmaven-install-plugin:3.1.4:install[m [1m(default-install)[m @ [36msia-booking[0;1m ---[m
+[[1;34mINFO[m] Installing /home/thinh/github/Automation-Factory/sia-booking/pom.xml to /home/thinh/.m2/repository/com/fortna/wes/sia-booking/0.0.1-SNAPSHOT/sia-booking-0.0.1-SNAPSHOT.pom
+[[1;34mINFO[m] Installing /home/thinh/github/Automation-Factory/sia-booking/target/sia-booking-0.0.1-SNAPSHOT.jar to /home/thinh/.m2/repository/com/fortna/wes/sia-booking/0.0.1-SNAPSHOT/sia-booking-0.0.1-SNAPSHOT.jar
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] [1;32mBUILD SUCCESS[m
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
+[[1;34mINFO[m] Total time:  39.096 s
+[[1;34mINFO[m] Finished at: 2026-03-24T15:04:44+07:00
+[[1;34mINFO[m] [1m------------------------------------------------------------------------[m
