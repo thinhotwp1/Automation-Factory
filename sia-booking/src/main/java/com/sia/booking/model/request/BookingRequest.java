@@ -10,4 +10,7 @@ public class BookingRequest {
 
     @NotBlank(message = "Flight number is required")
     private String flightNumber;
+
+    @NotBlank(message = "Passenger Name Record")
+    private String pnrCode;
 }

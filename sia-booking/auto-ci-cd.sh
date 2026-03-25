@@ -31,7 +31,7 @@ REVIEW_RESULT=$(openclaw agent \
   CHECKLIST:
   1. Security: Check for SQL Injection (especially in Repository calls), Hardcoded secrets, or Broken Access Control.
   2. SonarQube: Check for Code Smells, Cognitive Complexity, and naming conventions.
-  3. Logic: Ensure the 'cancelBooking' logic is robust.
+  3. Logic: Ensure the logic is robust.
 
   OUTPUT: If safe, start your reply with 'APPROVED'. If there are issues, list them clearly starting with 'REJECTED'.")
 
