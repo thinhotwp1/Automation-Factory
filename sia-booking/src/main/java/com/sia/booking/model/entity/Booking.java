@@ -18,7 +18,7 @@ public class Booking {
 
     private String passengerName;
     private String flightNumber; // Ex: SQ321
-    private String pnrCode;      // Passenger Name Record
+    private String pnrCode;      // Passenger Name Record: ^[A-Z]{2}-\d{5,10}$
     private Date bookingTime;
     private String status;       // CONFIRMED, CANCELLED
 

@@ -2,7 +2,6 @@ package com.sia.booking.service;
 
 import com.sia.booking.model.entity.Booking;
 import com.sia.booking.model.request.BookingRequest;
-import com.sia.booking.model.request.UpdateBookingRequest;
 import com.sia.booking.repository.BookingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,27 +25,20 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
-    public Booking updateBooking(String id, UpdateBookingRequest request) {
-        Long bookingId = Long.parseLong(id);
-        Booking booking = bookingRepository.findById(bookingId)
-                .orElseThrow(() -> new IllegalArgumentException("Booking not found with id: " + id));
-
-        booking.setPassengerName(request.getPassengerName());
-        booking.setFlightNumber(request.getFlightNumber());
-
-        return bookingRepository.save(booking);
+    public boolean validatePnrCode(String pnrCode) {
+        return pnrCode != null
+                && pnrCode.matches("^[A-Z]{2}-\\d{5,10}$")
+                && bookingRepository.findByPnrCode(pnrCode).isPresent();
     }
 
-    public boolean cancelBooking(String pnrCode) {
-        Booking booking = bookingRepository.findByPnrCode(pnrCode)
-                .orElseGet(() -> Booking.builder()
-                        .pnrCode(pnrCode)
-                        .status("CONFIRMED")
-                        .build());
-
-        booking.setStatus("CANCELLED");
-        bookingRepository.save(booking);
-        return true;
+    public boolean cancelBookingByPnr(String pnrCode) {
+        return bookingRepository.findByPnrCode(pnrCode)
+                .map(booking -> {
+                    booking.setStatus("CANCELLED");
+                    bookingRepository.save(booking);
+                    return true;
+                })
+                .orElse(false);
     }
 
     private String generatePNR() {

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ==========================================
-# SIA Booking Service - Auto Healing Pipeline
+# SIA Booking Service - Auto Working Pipeline
 # ==========================================
 
 echo "🚀 Starting Maven Build..."
@@ -25,9 +25,10 @@ grep -A 30 "\[ERROR\]" full_build.log > error_log.txt
 # Create a unique Session ID to guarantee zero context leakage (Token FinOps)
 WATCHER_SESSION="watcher-$(date +%s)"
 
-# Step 1: The Watcher analyzes the pruned error log
+# Step 1: The Watcher (gpt-5.4-nano) analyzes the pruned error log
 ERROR_SUMMARY=$(openclaw agent \
   --session-id "$WATCHER_SESSION" \
+  --agent watcher \
   -m "Read error_log.txt. Find the compilation or test error. Output ONLY a valid JSON string like this: {\"file\": \"src/.../BookingService.java\", \"error\": \"cannot find symbol method...\"}. Do NOT output any markdown blocks or explanations.")
 
 # Parse the JSON string safely
@@ -43,20 +44,30 @@ fi
 echo "🔍 Error detected in file: $FILE_TO_FIX"
 echo "🔧 Activating [AI Agent - The Fixer] to patch the code..."
 
-# Step 2: The Fixer implements the solution with Strict Guardrails
+# Step 2: The Fixer (o3-mini) implements the solution with Strict Guardrails
 FIXER_SESSION="fixer-$(date +%s)"
+
+# Read the file content to feed it directly to the AI (Saves tool-call tokens)
+FILE_CONTENT=$(cat "$FILE_TO_FIX")
 
 openclaw agent \
   --session-id "$FIXER_SESSION" \
+  --agent fixer \
   -m "You are a Senior Java Developer fixing a compilation/test error.
   Target File indicated by Watcher: $FILE_TO_FIX
   Error: $ERROR_MSG
+
+  CURRENT FILE CONTENT:
+  \`\`\`java
+  $FILE_CONTENT
+  \`\`\`
 
   CRITICAL RULES (GUARDRAILS):
   1. Your goal is to implement the missing logic to make the test pass.
   2. FORBIDDEN: You MUST NOT modify any files in the 'src/test/' directory.
   3. MANDATORY: You MUST modify the corresponding source code in 'src/main/java/...' to resolve the error.
-  4. Ensure the syntax is completely correct. Do not touch any other files."
+  4. PERFORMANCE: You MUST use proper Spring Data JPA repository methods (e.g., findByPnrCode). DO NOT use findAll().stream().
+  5. Rewrite the target file completely with the fix. Do not touch any other files."
 
 echo "♻️ Fix applied! Restarting validation loop (Recursion)..."
 ./auto-work.sh

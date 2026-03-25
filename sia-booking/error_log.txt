@@ -1,0 +1,24 @@
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/test/java/com/sia/booking/BookingServiceTest.java:[39,42] cannot find symbol
+  symbol:   method validatePnrCode(java.lang.String)
+  location: variable bookingService of type com.sia.booking.service.BookingService
+[INFO] 1 error
+[INFO] -------------------------------------------------------------
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.779 s
+[INFO] Finished at: 2026-03-25T09:44:35+07:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:testCompile (default-testCompile) on project sia-booking: Compilation failure
+[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/test/java/com/sia/booking/BookingServiceTest.java:[39,42] cannot find symbol
+[ERROR]   symbol:   method validatePnrCode(java.lang.String)
+[ERROR]   location: variable bookingService of type com.sia.booking.service.BookingService
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException

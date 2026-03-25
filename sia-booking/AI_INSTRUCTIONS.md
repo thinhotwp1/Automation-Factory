@@ -32,7 +32,6 @@ Response Handling: Always return ResponseEntity<T>. Wrap the response in standar
 ## 5. Coding Standards for AI Agent
 Lombok First: Utilize @Data, @Builder, @NoArgsConstructor, @AllArgsConstructor to minimize boilerplate.
 Immutability: Mark injected service dependencies as private final.
-Testing: Whenever a Service or Controller is modified, update or generate the corresponding test in src/test/java/com/sia/booking/.
 
 ## 6. Execution Workflow (Read Before Coding)
 Read the specific instruction from the user.
