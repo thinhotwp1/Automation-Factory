@@ -21,9 +21,6 @@ if [ ! -f "$TEST_FILE_PATH" ]; then
 fi
 
 echo "🔎 Scanning $TEST_CLASS for unimplemented methods..."
-
-# Sử dụng Perl với Multiline Regex (-0777) để tìm các method rỗng
-# Regex này sẽ bắt: @Test -> (có thể có các annotation khác) -> void methodName() -> { (chỉ chứa khoảng trắng hoặc comment) }
 HAS_UNIMPLEMENTED=$(perl -0777 -ne 'print "1" if /@Test[\s\n]*(?:@[A-Za-z0-9_]+[\s\n]*)*void\s+[A-Za-z0-9_]+\s*\([^)]*\)\s*\{\s*(?:\/\/.*?\s*|\/\*[\s\S]*?\*\/\s*)*\}/' "$TEST_FILE_PATH")
 
 if [ "$HAS_UNIMPLEMENTED" != "1" ]; then
@@ -36,7 +33,7 @@ echo "💡 Found unimplemented test methods! Proceeding to AI Agent Analysis..."
 
 echo "🔍 Analyzing Test Class: $TEST_CLASS"
 TEST_CONTENT=$(cat "$TEST_FILE_PATH")
-# Đọc file Bản đồ Kiến trúc (AI_INSTRUCTION.md)
+# Read AI_INSTRUCTION (AI_INSTRUCTION.md)
 INSTRUCTION_FILE="AI_INSTRUCTION.md"
 if [ -f "$INSTRUCTION_FILE" ]; then
     echo "🗺️ Loading Architecture Map from $INSTRUCTION_FILE..."
@@ -100,11 +97,11 @@ for FILE in $TARGET_FILES; do
     fi
 done
 
-# Step 2: The Fixer (Implement across all files)
-FIXER_SESSION="fixer-$(date +%s)"
+# Step 2: The Builder (Implement across all files)
+BUILDER_SESSION="builder-$(date +%s)"
 
 openclaw agent \
-  --session-id "$FIXER_SESSION" \
+  --session-id "$BUILDER_SESSION" \
   --agent fixer \
   -m "You are a Senior Java Developer at SIA.
   Your task: Implement missing methods/logic across ALL related Source Files AND strictly update the Test Class.

@@ -37,13 +37,22 @@ REVIEW_RESULT=$(openclaw agent \
 
 # 4. Decide commit or not
 if [[ "$REVIEW_RESULT" == *"APPROVED"* ]]; then
-    echo "✅ AI Review Passed! Proceeding to Commit & Push..."
+    echo "✅ AI Review Passed!"
 
-    git add .
-    git commit -m "auto: Validated booking-service logic [AI Verified]"
-    git push origin master
+    # Confirm
+    read -p "Proceed to Commit & Push? (Y/N): " CONFIRM
 
-    echo "🚀 Pipeline Completed Successfully!"
+    if [[ "$CONFIRM" =~ ^[Yy]$ ]]; then
+        echo "Proceeding..."
+        git add .
+        git commit -m "auto: Validated logic [AI Verified]"
+        git push origin master
+
+        echo "🚀 Pipeline Completed Successfully!"
+    else
+        echo "✋ Commit aborted by user. Files are modified but not committed."
+        exit 0
+    fi
 else
     echo "❌ AI Review REJECTED: Issues found!"
     echo "-----------------------------------"

@@ -70,4 +70,4 @@ openclaw agent \
   5. Rewrite the target file completely with the fix. Do not touch any other files."
 
 echo "♻️ Fix applied! Restarting validation loop (Recursion)..."
-./auto-work.sh
+./auto-fix.sh

@@ -10,9 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BookingService {
 
-    private static final String PNR_REGEX = "^[A-Z]{2}-\\d{5,10}$";
     private static final String CONFIRMED_STATUS = "CONFIRMED";
-    private static final String CANCELLED_STATUS = "CANCELLED";
 
     private final BookingRepository bookingRepository;
 
