@@ -27,13 +27,15 @@ class BookingServiceTest {
         bookingRepository.deleteAll();
 
         Booking mockBooking = new Booking();
-        mockBooking.setPnrCode("SQ-12345");
+        mockBooking.setPassengerName("John Doe");
+        mockBooking.setFlightNumber("SQ123");
+        mockBooking.setPnrCode("PC-12345");
         mockBooking.setStatus("CONFIRMED");
         bookingRepository.save(mockBooking);
     }
 
     /**
-     * Test case for SIA booking cancellation.
+     * Test case for SIA booking cancellation with Passenger Name Record - PNR Code.
      * 1. Validate PNR with pattern ^[A-Z]{2}-\d{5,10}$
      * 2. Execute cancellation logic via BookingService, use BookingRepository to execute with entity
      * 3. Verify status update in BookingRepository to 'CANCELLED'

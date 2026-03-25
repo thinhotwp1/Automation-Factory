@@ -20,29 +20,58 @@ if [ ! -f "$TEST_FILE_PATH" ]; then
     exit 1
 fi
 
+echo "🔎 Scanning $TEST_CLASS for unimplemented methods..."
+
+# Sử dụng Perl với Multiline Regex (-0777) để tìm các method rỗng
+# Regex này sẽ bắt: @Test -> (có thể có các annotation khác) -> void methodName() -> { (chỉ chứa khoảng trắng hoặc comment) }
+HAS_UNIMPLEMENTED=$(perl -0777 -ne 'print "1" if /@Test[\s\n]*(?:@[A-Za-z0-9_]+[\s\n]*)*void\s+[A-Za-z0-9_]+\s*\([^)]*\)\s*\{\s*(?:\/\/.*?\s*|\/\*[\s\S]*?\*\/\s*)*\}/' "$TEST_FILE_PATH")
+
+if [ "$HAS_UNIMPLEMENTED" != "1" ]; then
+    echo "✅ No unimplemented test methods found in $TEST_CLASS. All tests seem complete."
+    echo "⏭️ Skipping AI Analysis to save tokens."
+    exit 0
+fi
+
+echo "💡 Found unimplemented test methods! Proceeding to AI Agent Analysis..."
+
 echo "🔍 Analyzing Test Class: $TEST_CLASS"
 TEST_CONTENT=$(cat "$TEST_FILE_PATH")
+# Đọc file Bản đồ Kiến trúc (AI_INSTRUCTION.md)
+INSTRUCTION_FILE="AI_INSTRUCTION.md"
+if [ -f "$INSTRUCTION_FILE" ]; then
+    echo "🗺️ Loading Architecture Map from $INSTRUCTION_FILE..."
+    INSTRUCTION_CONTENT=$(cat "$INSTRUCTION_FILE")
+else
+    echo "❌ Error: $INSTRUCTION_FILE not found."
+    exit 1
+fi
 
-# Step 1: The Analyzer (Find ALL related files)
+# Step 1: The Analyzer find files to implements following AI_INSTRUCTION.md
 echo "🧠 Activating [AI Agent - The Analyzer]..."
 ANALYSIS_SESSION="analyzer-$(date +%s)"
 
-# Ask AI to return JSON on a single line
+# Embedded INSTRUCTION_CONTENT into prompt
 REQUIREMENTS=$(openclaw agent \
   --session-id "$ANALYSIS_SESSION" \
   --agent watcher \
-  -m "Read this Test Class content:
-  ---
-  $TEST_CONTENT
-  ---
-  Task:
-  1. Identify ALL target Source Files (e.g., Service, Repository, Entity, DTO) that must be modified or created to fulfill the test requirements.
-  2. Extract requirements from JavaDocs and missing methods.
-  Output ONLY a valid JSON. DO NOT output any markdown blocks (\`\`\`json), UI characters, or newlines. The output MUST be on a SINGLE LINE EXACTLY like this:
-  {\"target_files\": [\"path/to/BookingService.java\", \"path/to/BookingRepository.java\"], \"requirements\": \"...\"}")
+  -m "You are a Senior System Analyst for SIA.
+  Read the Architecture Map and the Test Class content below.
 
-# Data Sanitization: Extract ONLY the JSON object from the AI output using awk
-# This ignores any UI spinner characters or extra invisible text before/after the JSON
+  === ARCHITECTURE MAP & GUIDELINES ===
+  $INSTRUCTION_CONTENT
+
+  === TEST CLASS CONTENT ===
+  $TEST_CONTENT
+
+  Task:
+  1. Identify ALL target Source Files (Service, Repository, Entity, DTO) that must be modified or created to fulfill the test requirements.
+  2. PATH RESOLUTION: You MUST strictly use the directory structure defined in the ARCHITECTURE MAP to construct the exact file paths. Do NOT guess, invent, or create packages outside of 'src/main/java/com/sia/booking/'.
+  3. Extract requirements from JavaDocs and missing methods.
+
+  Output ONLY a valid JSON. DO NOT output any markdown blocks (\`\`\`json), UI characters, or newlines. The output MUST be on a SINGLE LINE EXACTLY like this:
+  {\"target_files\": [\"src/main/java/com/sia/booking/service/BookingService.java\", \"src/main/java/com/sia/booking/repository/BookingRepository.java\"], \"requirements\": \"...\"}")
+
+# Data Sanitization: Extract ONLY the JSON object using awk
 CLEAN_JSON=$(echo "$REQUIREMENTS" | awk 'match($0, /\{.*\}/) {print substr($0, RSTART, RLENGTH)}')
 
 # Use jq to parse the cleaned JSON
@@ -94,18 +123,18 @@ openclaw agent \
 
   STRICT GUARDRAILS:
   1. MANDATORY: Implement all core business logic across ALL necessary Source Files. If the Service needs a new repository method (e.g., findByPnrCode), you MUST add it to the Repository file provided.
-  2. MANDATORY: You MUST modify and improve the Test File ($TEST_FILE_PATH). Add at least 2 new test methods for edge cases.
+  2. MANDATORY: You MUST modify and improve the Test File ($TEST_FILE_PATH). Don't create new test method if not required.
   3. OUTPUT FORMAT: You must output the updated code for ALL modified files (Source Files + Test File). Precede each code block with its exact file path to help the auto-parser.
   4. JPA RULE: Use Spring Data JPA efficient methods (findByPnrCode).
   5. Clean Code: Ensure the code is production-ready for SIA standards."
 
-echo "✅ Implementation finished. Running Maven to verify..."
-mvn -B test -Dtest=$TEST_CLASS
+echo "✅ Implementation finished. Running Maven to verify the entire project..."
+mvn -B test
 
 if [ $? -eq 0 ]; then
-    echo "🎉 SUCCESS! All methods in $TEST_CLASS are implemented and passed."
+    echo "🎉 SUCCESS! All tests in the project passed. The new implementation for $TEST_CLASS is safe and integrated well."
 else
-    echo "❌ Test still failing. Check logs for details."
+    echo "❌ Tests failed (could be $TEST_CLASS or a regression issue). Check logs for details."
     echo "Calling auto-fix agent..."
     ./auto-fix.sh
 fi
