@@ -94,7 +94,7 @@ openclaw agent \
 
   STRICT GUARDRAILS:
   1. MANDATORY: Implement all core business logic across ALL necessary Source Files. If the Service needs a new repository method (e.g., findByPnrCode), you MUST add it to the Repository file provided.
-  2. MANDATORY: You MUST modify and improve the Test File ($TEST_FILE_PATH).
+  2. MANDATORY: You MUST modify and improve the Test File ($TEST_FILE_PATH). Add at least 2 new test methods for edge cases.
   3. OUTPUT FORMAT: You must output the updated code for ALL modified files (Source Files + Test File). Precede each code block with its exact file path to help the auto-parser.
   4. JPA RULE: Use Spring Data JPA efficient methods (findByPnrCode).
   5. Clean Code: Ensure the code is production-ready for SIA standards."
