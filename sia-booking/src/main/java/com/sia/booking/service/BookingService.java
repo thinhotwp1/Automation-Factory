@@ -47,10 +47,6 @@ public class BookingService {
                 .orElse(false);
     }
 
-    public boolean cancelBooking(String pnrCode) {
-        return cancelBookingByPnr(pnrCode);
-    }
-
     private String generatePNR() {
         return UUID.randomUUID().toString().substring(0, 6).toUpperCase();
     }
