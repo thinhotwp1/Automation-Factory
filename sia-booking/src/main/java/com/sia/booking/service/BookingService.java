@@ -12,6 +12,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class BookingService {
 
+    private static final String PNR_REGEX = "^[A-Z]{2}-\\d{5,10}$";
+    private static final String CONFIRMED_STATUS = "CONFIRMED";
+    private static final String CANCELLED_STATUS = "CANCELLED";
+
     private final BookingRepository bookingRepository;
 
     public Booking createBooking(BookingRequest request) {
@@ -19,26 +23,32 @@ public class BookingService {
                 .passengerName(request.getPassengerName())
                 .flightNumber(request.getFlightNumber())
                 .pnrCode(generatePNR())
-                .status("CONFIRMED")
+                .status(CONFIRMED_STATUS)
                 .build();
 
         return bookingRepository.save(booking);
     }
 
     public boolean validatePnrCode(String pnrCode) {
-        return pnrCode != null
-                && pnrCode.matches("^[A-Z]{2}-\\d{5,10}$")
-                && bookingRepository.findByPnrCode(pnrCode).isPresent();
+        return pnrCode != null && pnrCode.matches(PNR_REGEX);
     }
 
     public boolean cancelBookingByPnr(String pnrCode) {
+        if (!validatePnrCode(pnrCode)) {
+            return false;
+        }
+
         return bookingRepository.findByPnrCode(pnrCode)
                 .map(booking -> {
-                    booking.setStatus("CANCELLED");
+                    booking.setStatus(CANCELLED_STATUS);
                     bookingRepository.save(booking);
                     return true;
                 })
                 .orElse(false);
+    }
+
+    public boolean cancelBooking(String pnrCode) {
+        return cancelBookingByPnr(pnrCode);
     }
 
     private String generatePNR() {

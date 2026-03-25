@@ -1,7 +1,11 @@
 package com.sia.booking;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,9 +24,8 @@ class BookingServiceTest {
 
     @BeforeEach
     void setUp() {
-        // Clear old data to ensure test isolation
         bookingRepository.deleteAll();
-        // Init data
+
         Booking mockBooking = new Booking();
         mockBooking.setPnrCode("SQ-12345");
         mockBooking.setStatus("CONFIRMED");
@@ -37,6 +40,27 @@ class BookingServiceTest {
      */
     @Test
     void shouldCancelBookingByPnrCodeSuccessfully() {
+        String pnrCode = "SQ-12345";
 
+        assertTrue(bookingService.validatePnrCode(pnrCode));
+        assertTrue(bookingService.cancelBookingByPnr(pnrCode));
+
+        Booking updatedBooking = bookingRepository.findByPnrCode(pnrCode)
+                .orElseThrow(() -> new RuntimeException("Booking not found"));
+        assertEquals("CANCELLED", updatedBooking.getStatus());
+    }
+
+    @Test
+    void shouldRejectInvalidPnrFormat() {
+        assertFalse(bookingService.validatePnrCode("INVALID-123"));
+        assertFalse(bookingService.cancelBookingByPnr("INVALID-123"));
+    }
+
+    @Test
+    void shouldReturnFalseWhenBookingNotFound() {
+        String missingPnr = "SQ-99999";
+
+        assertTrue(bookingService.validatePnrCode(missingPnr));
+        assertFalse(bookingService.cancelBookingByPnr(missingPnr));
     }
 }
