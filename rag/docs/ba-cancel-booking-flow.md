@@ -11,7 +11,7 @@ This feature enables the system to process flight booking cancellations using a 
 ## ⚖️ Core Business Rules
 
 * **BR-01: PNR Format Validation**
-  A valid PNR code MUST adhere to the following strict regex structure (`^[A-Z]{2}-\d{5,10}$`):
+  A valid PNR code MUST adhere to the following strict regex structure:
     * Starts with **2 uppercase letters**.
     * Followed by **1 hyphen** (`-`).
     * Ends with **5 to 10 digits**.
@@ -23,7 +23,7 @@ This feature enables the system to process flight booking cancellations using a 
 
 ## 🚦 Use Case Scenarios
 
-### ✅ Scenario 1: Successful Cancellation (Happy Path)
+### Scenario 1: Successful Cancellation (Happy Path)
 * **ID:** `SIA-001001`
 * **Trigger:** The user requests to cancel a ticket with a valid PNR code that currently exists in the system.
 * **System Actions:**
@@ -32,7 +32,7 @@ This feature enables the system to process flight booking cancellations using a 
     3. Update the ticket status to `CANCELLED`.
 * **Outcome:** The system confirms a successful cancellation. The database reflects the `CANCELLED` status.
 
-### ❌ Scenario 2: Invalid PNR Format
+### Scenario 2: Invalid PNR Format
 * **ID:** `SIA-001002`
 * **Trigger:** The user provides a PNR string that violates the structural rules (e.g., `INVALID123`, missing a hyphen, or incorrect length).
 * **System Actions:**
@@ -40,7 +40,7 @@ This feature enables the system to process flight booking cancellations using a 
     2. Prevent any downstream database interactions.
 * **Outcome:** The request is rejected. The system throws an `IllegalArgumentException` (or `400 Bad Request`) indicating: *"Invalid Passenger Name Record (PNR) format."*
 
-### 🔍 Scenario 3: Missing Booking (Not Found)
+### Scenario 3: Missing Booking (Not Found)
 * **ID:** `SIA-001003`
 * **Trigger:** The user provides a structurally valid PNR, but no matching record exists in the database.
 * **System Actions:**
