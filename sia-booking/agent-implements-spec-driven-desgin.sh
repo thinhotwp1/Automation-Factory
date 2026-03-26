@@ -82,7 +82,8 @@ LIVE_CODE_CONTEXT=""
 # 3.1 Attach Target Test File
 if [ -f "$TEST_FILE_PATH" ]; then
     echo "   -> 📎 Attached Existing Test File: $TEST_FILE_PATH"
-    LIVE_CODE_CONTEXT+="\n=== FILE: $TEST_FILE_PATH ===\n\`\`\`java\n$(cat "$TEST_FILE_PATH")\n\`\`\`\n"
+    CLEAN_TEST=$(grep -v '^\s*//' "$TEST_FILE_PATH" | grep -v '^\s*$')
+    LIVE_CODE_CONTEXT+="\n=== FILE: $TEST_FILE_PATH ===\n\`\`\`java\n$CLEAN_TEST\n\`\`\`\n"
 else
     echo "   -> ⚠️ Test File not found. AI will generate it at: $TEST_FILE_PATH"
     LIVE_CODE_CONTEXT+="\n=== FILE: $TEST_FILE_PATH ===\n// NEW FILE - PLEASE IMPLEMENT TEST CASES HERE\n\`\`\`java\n\`\`\`\n"
@@ -90,13 +91,11 @@ fi
 
 # 3.2 Attach Source Dependencies
 for DEP in $DEPS_LIST; do
-    # Convert package notation to physical file path
-    # e.g., com.sia.booking.service.BookingService -> src/main/java/com/sia/booking/service/BookingService.java
     FILE_PATH="src/main/java/${DEP//./\/}.java"
-
     if [ -f "$FILE_PATH" ]; then
         echo "   -> 📎 Attached Source File: $FILE_PATH"
-        LIVE_CODE_CONTEXT+="\n=== FILE: $FILE_PATH ===\n\`\`\`java\n$(cat "$FILE_PATH")\n\`\`\`\n"
+        CLEAN_CODE=$(grep -v '^\s*//' "$FILE_PATH" | grep -v '^\s*$')
+        LIVE_CODE_CONTEXT+="\n=== FILE: $FILE_PATH ===\n\`\`\`java\n$CLEAN_CODE\n\`\`\`\n"
     else
         echo "   -> ⚠️ Source File not found. AI will generate it at: $FILE_PATH"
         LIVE_CODE_CONTEXT+="\n=== FILE: $FILE_PATH ===\n// NEW FILE - PLEASE IMPLEMENT LOGIC HERE\n\`\`\`java\n\`\`\`\n"
@@ -133,10 +132,12 @@ $RAG_CONTEXT
 $LIVE_CODE_CONTEXT
 
 [CONSTRAINTS]
-1. Implement all logic & tests in SPEC.
+1. TRACEABILITY (CRITICAL): You MUST map the SPEC rules to the Java methods using the @BusinessRule(\"SIA-XXXXXX\") annotation.
+   - UPDATE MODE: If you see an existing method in LIVE_CODE annotated with @BusinessRule matching the specific SPEC ID, you MUST modify that existing method. DO NOT create duplicate methods.
+   - CREATE MODE: If the SPEC ID does not exist in the file, create a new method and annotate it.
 2. Keep exact file paths from LIVE_CODE. No inventing.
 3. OUTPUT: Exact file path header + FULL markdown java code block.
-4. Minimal intrusion: Append/modify only. Do not rewrite unrelated methods."
+4. Minimal intrusion: Append or modify only the requested features. Do not rewrite unrelated methods."
 
 echo "✅ AI Implementation finished. Running Maven to verify the entire project..."
 mvn -B test

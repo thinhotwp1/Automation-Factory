@@ -1,5 +1,6 @@
 # ARCHITECTURE_RULES
 - stack: java21, spring_boot_3, maven
+- architecture: layered
 - libraries: lombok, spring_web, spring_data_jpa
 - api_base: /api/v1/
 - di: @RequiredArgsConstructor (NO @Autowired on fields)
@@ -8,3 +9,4 @@
 - exception: Throw specific (IllegalArgumentException, NotFoundException). No generic RuntimeException.
 - dependencies: private final
 - boundaries: Controller (HTTP) -> Service (Domain) -> Repository (Persistence).
+- traceability: EVERY generated test method and core domain method MUST be explicitly annotated with `@BusinessRule("SIA-XXXXXX")` matching the ID from the FEATURE SPECIFICATION. This is critical for future updates.

@@ -71,4 +71,4 @@ def process_markdown_file(file_path):
     print(f"✅ Successfully UPSERTED {len(documents)} chunks from {file_path} into the Vector DB!")
 
 if __name__ == "__main__":
-    process_markdown_file("spec/cancel-booking-flow.md")
+    process_markdown_file("docs/spec-cancel-booking-flow.md")

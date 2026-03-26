@@ -10,7 +10,7 @@ author: "Architecture_Team"
 last_updated: "2026-03-25"
 ---
 
-# Feature Specification: Cancel Booking (SIA-001000)
+# SIA-001000: Feature Specification: Cancel Booking
 This specification defines the behavior for cancelling a flight booking. The AI Agent MUST generate both the Unit/Integration Tests and the Core Business Logic using the dependencies defined in the metadata.
 
 ## SIA-001001: Successful Cancellation
