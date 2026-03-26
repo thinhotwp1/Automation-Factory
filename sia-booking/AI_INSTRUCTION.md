@@ -9,4 +9,4 @@
 - exception: Throw specific (IllegalArgumentException, NotFoundException). No generic RuntimeException.
 - dependencies: private final
 - boundaries: Controller (HTTP) -> Service (Domain) -> Repository (Persistence).
-- traceability: EVERY generated test method and core domain method MUST be explicitly annotated with `@BusinessRule("SIA-XXXXXX")` matching the ID from the FEATURE SPECIFICATION. This is critical for future updates.
+- traceability: EVERY generated TEST method MUST be explicitly annotated with `@BusinessRule("SIA-XXXXXX")` matching the ID from the FEATURE SPECIFICATION. DO NOT add this annotation to source/domain classes (e.g., BookingService). Keep production code clean.

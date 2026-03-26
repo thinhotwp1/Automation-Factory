@@ -132,7 +132,7 @@ $RAG_CONTEXT
 $LIVE_CODE_CONTEXT
 
 [CONSTRAINTS]
-1. TRACEABILITY (CRITICAL): You MUST map the SPEC rules to the Java methods using the @BusinessRule(\"SIA-XXXXXX\") annotation.
+1. TRACEABILITY (CRITICAL): You MUST map the SPEC rules to the Java test methods using the @BusinessRule(\"SIA-XXXXXX\") annotation.
    - UPDATE MODE: If you see an existing method in LIVE_CODE annotated with @BusinessRule matching the specific SPEC ID, you MUST modify that existing method. DO NOT create duplicate methods.
    - CREATE MODE: If the SPEC ID does not exist in the file, create a new method and annotate it.
 2. Keep exact file paths from LIVE_CODE. No inventing.
