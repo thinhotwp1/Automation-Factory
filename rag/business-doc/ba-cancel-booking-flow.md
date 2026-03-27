@@ -1,5 +1,5 @@
 
-# 🛫 Feature: Flight Booking Cancellation (SIA-001000)
+# 🛫 Feature: Flight Booking Cancellation (SIA-FEAT-000001)
 
 > **Domain:** Booking Module | **Aggregate:** Booking | **Last Updated:** March 26, 2026 | **Status:** 🟢 Active
 
@@ -24,7 +24,7 @@ This feature enables the system to process flight booking cancellations using a 
 ## 🚦 Use Case Scenarios
 
 ### Scenario 1: Successful Cancellation (Happy Path)
-* **ID:** `SIA-001001`
+* **ID:** `SIA-FEAT-000001-01`
 * **Trigger:** The user requests to cancel a ticket with a valid PNR code that currently exists in the system.
 * **System Actions:**
     1. Validate the PNR code format.
@@ -33,7 +33,7 @@ This feature enables the system to process flight booking cancellations using a 
 * **Outcome:** The system confirms a successful cancellation. The database reflects the `CANCELLED` status.
 
 ### Scenario 2: Invalid PNR Format
-* **ID:** `SIA-001002`
+* **ID:** `SIA-FEAT-000002`
 * **Trigger:** The user provides a PNR string that violates the structural rules (e.g., `INVALID123`, missing a hyphen, or incorrect length).
 * **System Actions:**
     1. Block the request immediately at the initial validation layer.
@@ -41,7 +41,7 @@ This feature enables the system to process flight booking cancellations using a 
 * **Outcome:** The request is rejected. The system throws an `IllegalArgumentException` (or `400 Bad Request`) indicating: *"Invalid Passenger Name Record (PNR) format."*
 
 ### Scenario 3: Missing Booking (Not Found)
-* **ID:** `SIA-001003`
+* **ID:** `SIA-FEAT-000003`
 * **Trigger:** The user provides a structurally valid PNR, but no matching record exists in the database.
 * **System Actions:**
     1. Validate the PNR format (Passes).

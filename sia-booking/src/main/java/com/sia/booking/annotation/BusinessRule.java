@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
  * Links this code block directly to a Vector DB Specification ID.
  */
 @Target({ElementType.METHOD, ElementType.TYPE})
-@Retention(RetentionPolicy.SOURCE) // Scope Source Code for AI/Dev, not in Runtime
+@Retention(RetentionPolicy.SOURCE)
 public @interface BusinessRule {
-    String value(); // Spec ID, ex: "SIA-001001"
+    String[] value();
 }

@@ -1,12 +1,11 @@
-# ARCHITECTURE_RULES
-- stack: java21, spring_boot_3, maven
-- architecture: layered
-- libraries: lombok, spring_web, spring_data_jpa
-- api_base: /api/v1/
-- di: @RequiredArgsConstructor (NO @Autowired on fields)
-- payload: Use DTOs. NEVER expose Entities in requests.
-- response: ResponseEntity<T>
-- exception: Throw specific (IllegalArgumentException, NotFoundException). No generic RuntimeException.
-- dependencies: private final
-- boundaries: Controller (HTTP) -> Service (Domain) -> Repository (Persistence).
-- traceability: EVERY generated TEST method MUST be explicitly annotated with `@BusinessRule("SIA-XXXXXX")` matching the ID from the FEATURE SPECIFICATION. DO NOT add this annotation to source/domain classes (e.g., BookingService). Keep production code clean.
+# ARCHITECTURE
+- Stack: Java 21, Spring Boot 3, Maven, Layered (Controller->Service->Repo).
+- DI: `@RequiredArgsConstructor`, `private final`. NO field `@Autowired`.
+- I/O: `/api/v1/`, `ResponseEntity<T>`, DTOs only. NO Entities.
+- Errors: Specific exceptions only. NO generic `RuntimeException`.
+
+# AI_RULES (STRICT)
+- TRACEABILITY: Annotate ALL test & prod methods with `@BusinessRule`.
+- MULTI-MAPPING: Share methods via arrays: `@BusinessRule({"ID-1", "ID-2"})`.
+- OVERWRITE: FORCE update logic to match new specs. NEVER say "already aligned" or skip.
+- PRESERVE: KEEP existing IDs in `@BusinessRule` arrays when adding/updating targets.

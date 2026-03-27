@@ -32,7 +32,8 @@ st.subheader("🔍 Test Vector & Exact Search")
 # Create a 3-column layout for the search bar and filters
 col1, col2, col3 = st.columns(3)
 with col1:
-    search_query = st.text_input("Enter a query (e.g., Happy Path) OR exact ID (e.g., SIA-001001):")
+    # Update hint text to reflect new ID format
+    search_query = st.text_input("Enter a query (e.g., Happy Path) OR exact ID (e.g., SIA-FEAT-000001):")
 with col2:
     selected_domain = st.selectbox("Filter by Domain:", domains)
 with col3:
@@ -40,25 +41,36 @@ with col3:
 
 # Execute search only if a text query is provided
 if search_query:
-    query_text = search_query.strip()
+    query_text = search_query.strip().upper() # Normalize to uppercase for ID matching
 
     # ---------------------------------------------------------
     # ROUTING LOGIC: Exact ID vs Semantic Vector Search
     # ---------------------------------------------------------
-    if re.match(r'^SIA-\d+$', query_text, re.IGNORECASE):
-        # 1. EXACT ID FETCH
-        st.info("💡 Detect exact ID format. Using Database Fetch instead of Vector Search...")
+    # MỚI: Regex bắt chuẩn định dạng SIA-FEAT-000001 hoặc SIA-FEAT-000001-01, SIA-DICT-000001
+    if re.match(r'^SIA-[A-Z]+-\d{6}(?:-\d{2})?$', query_text):
+        # 1. EXACT ID FETCH (With Parent-Child Support)
+        st.info(f"💡 Detect exact ID format. Fetching {query_text} directly from database...")
         try:
-            #  collection.get() to get exactly
-            results = collection.get(ids=[query_text])
+            # Lấy toàn bộ ID hiện có và lọc những ID bắt đầu bằng query_text
+            # Điều này giúp gõ SIA-FEAT-000001 sẽ ra cả 01, 02, 03
+            all_ids = data['ids']
+            matching_ids = [doc_id for doc_id in all_ids if doc_id.startswith(query_text)]
 
-            if results and results['documents'] and len(results['documents']) > 0:
-                doc = results['documents'][0]
-                metadata = results['metadatas'][0]
+            if matching_ids:
+                results = collection.get(ids=matching_ids)
+                st.success(f"Found {len(matching_ids)} chunk(s) belonging to {query_text}")
 
-                with st.expander(f"Result (Exact Match) | Chunk ID: {query_text}", expanded=True):
-                    st.caption(f"**Domain:** {metadata.get('domain', 'N/A')} | **Category:** {metadata.get('category', 'N/A')}")
-                    st.markdown(doc)
+                # Sắp xếp để hiển thị theo thứ tự 01, 02, 03
+                sorted_indices = sorted(range(len(results['ids'])), key=lambda k: results['ids'][k])
+
+                for i in sorted_indices:
+                    doc = results['documents'][i]
+                    metadata = results['metadatas'][i]
+                    chunk_id = results['ids'][i]
+
+                    with st.expander(f"Result (Exact Match) | Chunk ID: {chunk_id}", expanded=True):
+                        st.caption(f"**Domain:** {metadata.get('domain', 'N/A')} | **Category:** {metadata.get('category', 'N/A')}")
+                        st.markdown(doc)
             else:
                 st.warning(f"No exact match found for ID: {query_text}")
         except Exception as e:
@@ -97,8 +109,9 @@ if search_query:
                     doc = results['documents'][0][i]
                     distance = results['distances'][0][i]
                     metadata = results['metadatas'][0][i]
+                    chunk_id = results['ids'][0][i]
 
-                    with st.expander(f"Result #{i+1} | Distance Score: {distance:.4f} (Smaller is better)", expanded=True):
+                    with st.expander(f"Result #{i+1} | ID: {chunk_id} | Distance Score: {distance:.4f}", expanded=True):
                         st.caption(f"**Domain:** {metadata.get('domain', 'N/A')} | **Category:** {metadata.get('category', 'N/A')}")
                         st.markdown(doc)
             else:
@@ -109,14 +122,18 @@ if search_query:
 # 5. Database Explorer Interface
 st.subheader("📦 Database Explorer")
 if total_records > 0:
-    # Convert JSON data to a beautiful DataFrame (Table)
+    # CẬP NHẬT: Thay đổi các cột hiển thị để phù hợp với metadata mới (dictionary_dependencies, bean_dependencies)
     df = pd.DataFrame({
         "Chunk ID": data['ids'],
         "Domain": [meta.get('domain', 'N/A') for meta in data['metadatas']],
         "Category": [meta.get('category', 'N/A') for meta in data['metadatas']],
-        "Tags": [meta.get('tags', '') for meta in data['metadatas']],
-        "Content": data['documents']
+        "Dict Deps": [meta.get('dictionary_dependencies', '') for meta in data['metadatas']],
+        "Bean Deps": [meta.get('bean_dependencies', '') for meta in data['metadatas']],
+        "Content": [doc[:150] + "..." if len(doc) > 150 else doc for doc in data['documents']] # Cắt ngắn nội dung cho gọn bảng
     })
+
+    # Sắp xếp bảng theo Chunk ID cho dễ nhìn
+    df = df.sort_values(by="Chunk ID").reset_index(drop=True)
     st.dataframe(df, use_container_width=True)
 else:
     st.warning("Database is currently empty!")

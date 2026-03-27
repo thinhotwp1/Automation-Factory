@@ -1,12 +1,12 @@
 import chromadb
 import yaml
 import re
+import os
 
 # 1. Connect to the Vector Database running via Docker
 client = chromadb.HttpClient(host='localhost', port=8000)
 
-# Create or get the Collection (Similar to a Table in SQL)
-# python -c "import chromadb; chromadb.HttpClient(host='localhost', port=8000).delete_collection('sia_knowledge_base')"
+# Create or get the Collection
 collection = client.get_or_create_collection(name="sia_knowledge_base")
 
 def process_markdown_file(file_path):
@@ -14,61 +14,80 @@ def process_markdown_file(file_path):
         content = file.read()
 
     # 2. Extract YAML Metadata and Text Content
-    # Find the content block between the two --- lines
     parts = re.split(r'^---\s*$', content, flags=re.MULTILINE)
 
     if len(parts) >= 3:
         yaml_metadata = yaml.safe_load(parts[1])
         markdown_body = parts[2].strip()
     else:
-        print("Error: Standard YAML Frontmatter not found.")
+        print(f"⚠️ Error: Standard YAML Frontmatter not found in {file_path}")
         return
 
     # 3. Chunking Technique (Split by ## Heading)
-    # Split the article into smaller chunks for the AI to digest easily
-    chunks = re.split(r'\n## ', markdown_body)
+    # Using (?m)^## to match ## at the start of a line, handling multi-line strings better
+    chunks = re.split(r'(?m)^## ', markdown_body)
 
     documents = []
     metadatas = []
     ids = []
 
-    # ChromaDB requires metadata values to be strings, numbers, or booleans. (Cast lists to strings)
-    safe_metadata = {k: (",".join(v) if isinstance(v, list) else v) for k, v in yaml_metadata.items()}
+    # ChromaDB requires metadata values to be strings, numbers, or booleans.
+    safe_metadata = {}
+    for k, v in yaml_metadata.items():
+        if isinstance(v, list):
+            safe_metadata[k] = ",".join(v)
+        elif v is None:
+            safe_metadata[k] = ""
+        else:
+            safe_metadata[k] = v
 
-    # Skip the first chunk (chunks[0]) which contains the main header / title.
-    # Process only the following sections starting with '##'.
-    for i, chunk in enumerate(chunks[1:], start=1):
-        # Use Regex to extract the SIA-xxxxxx code from the first line of the chunk.
-        # Example: "SIA-001002: Invariant Validation..." -> matches "SIA-001002".
-        match = re.search(r'^(SIA-\d+)', chunk)
+    # Iterate through chunks
+    for i, chunk in enumerate(chunks):
+        chunk = chunk.strip()
+        if not chunk:
+            continue
+
+        # Regex update: Capture formats like "SIA-FEAT-000001-01" or "SIA-DICT-000001"
+        match = re.search(r'^(SIA-[A-Z]+-\d{6}(?:-\d{2})?)', chunk)
 
         if match:
-            chunk_id = match.group(1) # Use SIA-001002 as the hard ID
+            chunk_id = match.group(1) # Uses exact ID from the header
         else:
-            # Fallback if the chunk doesn't follow the standard format
-            chunk_id = f"{yaml_metadata['id']}_unknown_{i}"
+            # Skip chunks that don't start with a proper ID (like the main # Title chunk)
+            continue
 
-        # Create specific metadata for each chunk, inheriting from the main YAML
         chunk_metadata = safe_metadata.copy()
-        chunk_metadata["sub_id"] = chunk_id  # Save sub_id for filtering purposes
+        chunk_metadata["sub_id"] = chunk_id
 
-        documents.append(f"## {chunk}".strip())
+        # Re-add the ## that was removed during the split
+        documents.append(f"## {chunk}")
         metadatas.append(chunk_metadata)
-        ids.append(chunk_id) # The ChromaDB ID is now SIA-xxxxxx
+        ids.append(chunk_id)
 
     if not documents:
-        print(f"Warning: No valid sections found in {file_path} to insert.")
+        print(f"⚠️ Warning: No valid ID sections found in {file_path}. Skipping.")
         return
 
     # 4. Ingestion (Use UPSERT instead of ADD)
-    # Upsert will automatically overwrite new data if the ID exists, and add new if it doesn't
-    collection.delete
     collection.upsert(
         documents=documents,
         metadatas=metadatas,
         ids=ids
     )
-    print(f"✅ Successfully UPSERTED {len(documents)} chunks from {file_path} into the Vector DB!")
+    print(f"✅ Successfully UPSERTED {len(documents)} chunks from {os.path.basename(file_path)}!")
+
+def process_all_markdowns(directory):
+    print(f"🔍 Scanning directory: {directory} for Markdown files...")
+    file_count = 0
+    # os.walk will recursively search through all folders and subfolders
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.md'):
+                file_path = os.path.join(root, file)
+                process_markdown_file(file_path)
+                file_count += 1
+    print(f"🎉 Ingestion Complete! Processed {file_count} files.")
 
 if __name__ == "__main__":
-    process_markdown_file("docs/spec-cancel-booking-flow.md")
+    # Ensure you have a 'docs' folder in the same directory, or provide the correct path
+    process_all_markdowns("docs")
