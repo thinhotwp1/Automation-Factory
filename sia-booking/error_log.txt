@@ -1,20 +1,28 @@
 [ERROR] COMPILATION ERROR : 
 [INFO] -------------------------------------------------------------
-[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/test/java/com/sia/booking/BookingServiceTest.java:[39,42] cannot find symbol
-  symbol:   method validatePnrCode(java.lang.String)
-  location: variable bookingService of type com.sia.booking.service.BookingService
-[INFO] 1 error
+[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/main/java/com/sia/booking/service/BookingService.java:[7,37] package com.sia.booking.model.request does not exist
+[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/main/java/com/sia/booking/service/BookingService.java:[25,34] cannot find symbol
+  symbol:   class BookingRequest
+  location: class com.sia.booking.service.BookingService
+[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/main/java/com/sia/booking/service/BookingService.java:[56,40] cannot find symbol
+  symbol:   class BookingRequest
+  location: class com.sia.booking.service.BookingService
+[INFO] 3 errors 
 [INFO] -------------------------------------------------------------
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD FAILURE
 [INFO] ------------------------------------------------------------------------
-[INFO] Total time:  2.779 s
-[INFO] Finished at: 2026-03-25T09:44:35+07:00
+[INFO] Total time:  5.435 s
+[INFO] Finished at: 2026-03-27T18:16:02+07:00
 [INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:testCompile (default-testCompile) on project sia-booking: Compilation failure
-[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/test/java/com/sia/booking/BookingServiceTest.java:[39,42] cannot find symbol
-[ERROR]   symbol:   method validatePnrCode(java.lang.String)
-[ERROR]   location: variable bookingService of type com.sia.booking.service.BookingService
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.14.1:compile (default-compile) on project sia-booking: Compilation failure: Compilation failure: 
+[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/main/java/com/sia/booking/service/BookingService.java:[7,37] package com.sia.booking.model.request does not exist
+[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/main/java/com/sia/booking/service/BookingService.java:[25,34] cannot find symbol
+[ERROR]   symbol:   class BookingRequest
+[ERROR]   location: class com.sia.booking.service.BookingService
+[ERROR] /home/thinh/github/Automation-Factory/sia-booking/src/main/java/com/sia/booking/service/BookingService.java:[56,40] cannot find symbol
+[ERROR]   symbol:   class BookingRequest
+[ERROR]   location: class com.sia.booking.service.BookingService
 [ERROR] -> [Help 1]
 [ERROR] 
 [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.

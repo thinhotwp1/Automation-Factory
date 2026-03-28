@@ -163,9 +163,7 @@ if [ ! -z "$HAS_ERROR" ]; then
 fi
 
 SPEC_CONTEXT=$(echo "$RAG_DATA" | jq -r '.spec_context')
-echo "SPEC_CONTEXT:\n $SPEC_CONTEXT"
 LIVE_CODE_CONTEXT=$(echo "$RAG_DATA" | jq -r '.live_code_context')
-echo "LIVE_CODE_CONTEXT:\n $LIVE_CODE_CONTEXT"
 
 echo "   -> ✅ Context Assembled Successfully!"
 
@@ -176,21 +174,16 @@ INSTRUCTION_CONTENT=$(cat "$INSTRUCTION_FILE" 2>/dev/null || echo "Maintain Clea
 echo "🛠️ Activating [AI Agent - The Builder]..."
 BUILDER_SESSION="builder-$(date +%s)"
 
-PROMP_CONTEXT= "ROLE: Java Architect.
+PROMPT_CONTEXT="ROLE: Java Architect.
                  TASK: Implement SPEC in LIVE_CODE adhering to RULES.
-
                  [EXECUTION SCOPE]
                  $EXECUTION_SCOPE
-
                  [RULES]
                  $INSTRUCTION_CONTENT
-
                  [SPEC & DEFINITIONS]
                  $SPEC_CONTEXT
-
                  [PRUNED LIVE CODE]
                  $LIVE_CODE_CONTEXT
-
                  [ZERO-TOLERANCE CONSTRAINTS]
                  1. MANDATORY ANNOTATION: The CI/CD pipeline will IMMEDIATELY FAIL if any method lacks the @BusinessRule annotation. You are FORBIDDEN from writing bare methods.
                  2. NO EXCUSES: Do NOT say 'the tests already cover this' or 'stay as-is'. You MUST output the complete Java code block including the annotations.
@@ -201,11 +194,12 @@ PROMP_CONTEXT= "ROLE: Java Architect.
                      // business logic here...
                  }
                  4. OUTPUT ONLY CODE: Provide the exact file path header + FULL markdown java code block of the changes. No yapping. No conversational filler."
-echo "$PROMP_CONTEXT"
+
+echo "PROMPT_CONTEXT: $PROMPT_CONTEXT"
 openclaw agent \
   --session-id "$BUILDER_SESSION" \
   --agent fixer \
-  -m "$PROMP_CONTEXT"
+  -m "$PROMPT_CONTEXT"
 
 echo "✅ AI Implementation finished. Verifying with Maven..."
 mvn -B test
